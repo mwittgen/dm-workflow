@@ -5,8 +5,9 @@ on:
 
 inputs:
   args:
-    description: "Arguments passed to yamllint"
-    default: "."
+    description: 'Arguments passed to yamllint'
+    default: '.'
+    type: string
     required: false
 
 jobs:

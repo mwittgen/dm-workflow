@@ -20,9 +20,9 @@ jobs:
 
       - name: Run isort
         run: isort --check-only \
-               $(test -e bin.src/ && 'echo bin/src/') \
-               $(test -e python/ && 'echo python/') \
-               $(test -e tests/ && 'echo tests/')
+               $(test -e bin.src/ && echo 'bin/src/') \
+               $(test -e python/ && echo 'python/') \
+               $(test -e tests/ && echo 'tests/')
 
       - name: Run black
         run: black --check --verbose --diff \

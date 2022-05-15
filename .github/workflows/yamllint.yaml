@@ -2,13 +2,12 @@ name: Lint YAML Files
 
 on:
   workflow_call:
-
-inputs:
-  args:
-    description: 'Arguments passed to yamllint'
-    default: '.'
-    type: string
-    required: false
+  inputs:
+    args:
+      description: 'Arguments passed to yamllint'
+      default: '.'
+      type: string
+      required: false
 
 jobs:
   lint:

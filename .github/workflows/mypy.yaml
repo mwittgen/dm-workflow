@@ -1,0 +1,39 @@
+name: Run mypy
+
+on:
+  workflow_call:
+
+jobs:
+  mypy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+          cache: "pip"
+
+      - name: Install
+        run: pip install mypy pydantic
+
+      - name: Install third party stubs
+        run: pip install types-requests types-PyYAML types-click types-pkg_resources types-Deprecated types-setuptools types-urllib3
+
+      - name: Install lsst dependencies
+        run: |
+          if [ -e requirements.txt ]
+          then
+             pip install -r requirements.txt
+          fi
+
+      - name: Fake a version
+        run: |
+          repo=$(echo ${{ github.event.repository.name }} | sed 's/_/\//g')
+          echo "__all__ = ['__version__']" > python/lsst/${repo}/version.py
+          echo "__version__ = '0.0.1'" >> python/lsst/${repo}/version.py
+
+      - name: Change to source directory and run mypy
+        run: mypy python/lsst
